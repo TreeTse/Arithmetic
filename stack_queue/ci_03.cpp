@@ -6,27 +6,36 @@
 列的长度是相等的）
 */
 
+
+/*
+思路：建立辅助栈，将栈的压入序列压入到辅助栈；
+压入的最后一个元素跟弹出序列进行比较，如果辅助栈顶元素与弹出序列相等就弹出；
+判断辅助栈元素是否被完全弹出，如果完全弹出就返回true，否则返回false
+*/
+
 class Solution {
 public:
     bool IsPopOrder(vector<int> pushV,vector<int> popV) {
-        stack<int> m_data;
-        vector<int>::iterator iter1,iter2;
-        iter2=popV.begin();
-        if(pushV.size()==0)
+        stack<int> temp;
+        vector<int>::iterator it1;
+        vector<int>::iterator it2;
+        it2 = popV.begin();
+        if(pushV.empty()){
             return false;
-        for(iter1=pushV.begin();iter1!=pushV.end();iter1++)
-        {
-            m_data.push(*iter1);
-            while(!m_data.empty()&&m_data.top()==(*iter2))
-            {
-                m_data.pop();
-                iter2++;
+        }
+        for(it1 = pushV.begin(); it1!=pushV.end(); it1++){
+            temp.push(*it1);
+            while(!temp.empty()&&temp.top() == (*it2)){
+                temp.pop();
+                it2++;
             }
         }
-        if(m_data.empty())
+        if(temp.empty())
             return true;
-        return false;
+        else
+            return false;
     }
 };
+
 
 

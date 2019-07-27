@@ -38,7 +38,3 @@ private:
     }
 };
 
-
-![avatar](../../../../E:/Xshot-0022.jpg)
-
-![avatar](../../../../E:/Xshot-0023.jpg)

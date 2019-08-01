@@ -72,3 +72,41 @@ public:
         return res;
     }
 };
+
+
+
+/*
+解法二：采用一个辅助栈来实现，need n extra space
+*/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        if(head == NULL || head->next == NULL)
+            return true;
+        stack<int> data;
+        ListNode* l = head;
+        while(l != NULL){
+            data.push(l -> val);
+            l = l -> next;
+        }
+        l = head;
+        while(l != NULL){
+            if(l->val != data.top())
+                return false;
+            l = l -> next;
+            data.pop();
+        }
+        return true;
+    }
+};
+
+

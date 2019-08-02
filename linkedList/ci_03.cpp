@@ -54,3 +54,32 @@ public:
     }
 };
 
+
+//解法2：使用map来实现
+
+/*
+struct ListNode {
+	int val;
+	struct ListNode *next;
+	ListNode(int x) :
+			val(x), next(NULL) {
+	}
+};*/
+class Solution {
+public:
+    ListNode* FindFirstCommonNode( ListNode* pHead1, ListNode* pHead2) {
+        map<ListNode*,int> mapNode;
+        ListNode* p = pHead1;
+        while(p != NULL){
+            mapNode[p] = 1;
+            p = p->next;
+        }
+        p = pHead2;
+        while(p != NULL){
+            if(mapNode[p] == 1)
+                return p;
+            p = p->next;
+        }
+        return NULL;
+    }
+};

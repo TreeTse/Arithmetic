@@ -12,6 +12,7 @@ struct ListNode {
 			val(x), next(NULL) {
 	}
 };*/
+
 int getLength(ListNode* pHead){
     int count = 0;
     if(pHead == NULL)
@@ -23,6 +24,7 @@ int getLength(ListNode* pHead){
     }
     return count;
 }
+
 class Solution {
 public:
     ListNode* FindFirstCommonNode( ListNode* pHead1, ListNode* pHead2) {
@@ -65,6 +67,7 @@ struct ListNode {
 			val(x), next(NULL) {
 	}
 };*/
+
 class Solution {
 public:
     ListNode* FindFirstCommonNode( ListNode* pHead1, ListNode* pHead2) {
@@ -83,3 +86,4 @@ public:
         return NULL;
     }
 };
+

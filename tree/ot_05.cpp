@@ -16,7 +16,6 @@ public:
 }
 */
 
-![](https://raw.githubusercontent.com/TreeTse/TreeTse.github.io/master/ImgStorage/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%9F%A5%E6%89%BE%E5%90%8E%E7%BB%A7%E8%8A%82%E7%82%B9.jpg)
 
 Node* getNode(Node* node) {
 	if (node == NULL)

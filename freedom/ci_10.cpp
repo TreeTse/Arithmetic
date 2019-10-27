@@ -7,6 +7,8 @@
 就可以求出两个只出现一次的数字
 */
 
+
+
 class Solution {
 public:
     void FindNumsAppearOnce(vector<int> data,int* num1,int *num2) {

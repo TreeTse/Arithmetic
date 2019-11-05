@@ -1,7 +1,7 @@
 
 
 
-//解法：双指针法
+//解法：使用快慢指针
 
 Node* FindMToLastNode(Node* phead,int m){
     Node* cur = phead;
@@ -18,5 +18,6 @@ Node* FindMToLastNode(Node* phead,int m){
     }
     return tmp;
 }
+
 
 

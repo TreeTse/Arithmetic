@@ -6,4 +6,15 @@
 */
 
 
+class Solution {
+public:
+    string LeftRotateString(string str, int n) {
+        int len = str.length();
+        if(len == 0) return "";
+        str += str;
+        n = n % len;
+        return str.substr(n,len);
+    }
+};
+
 

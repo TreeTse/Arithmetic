@@ -32,3 +32,38 @@ public:
 };
 
 
+
+//解法二：利用结论：
+//1、设置快慢指针，假如有环，他们最后一定相遇。
+//2、两个指针分别从链表头和相遇点继续出发，每次走一步，最后一定相遇与环入口。
+/*
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) :
+        val(x), next(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    ListNode* EntryNodeOfLoop(ListNode* pHead){
+        ListNode* fast = pHead;
+        ListNode* low = pHead;
+        while(fast && fast->next){
+            fast = fast->next->next;
+            low = low->next;
+            if(fast == low)
+                break;
+        }
+        if(!fast || !fast->next)
+              return NULL;
+        low = pHead;
+        while(fast != low){
+            fast = fast->next;
+            low = low->next;
+        }
+        return fast;
+    }
+};
+

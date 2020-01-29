@@ -4,6 +4,7 @@
 */
 
 
+//解法：使用队列，成对比较
 /*
 struct TreeNode {
     int val;

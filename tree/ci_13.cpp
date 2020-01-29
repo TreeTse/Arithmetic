@@ -1,19 +1,45 @@
 /*
 题目描述
-操作给定的二叉树，将其变换为源二叉树的镜像。
-输入描述:
-二叉树的镜像定义：源二叉树 
-    	    8
-    	   /  \
-    	  6   10
-    	 / \  / \
-    	5  7 9 11
-    	镜像二叉树
-    	    8
-    	   /  \
-    	  10   6
-    	 / \  / \
-    	11 9 7  5
+请实现一个函数，用来判断一颗二叉树是不是对称的。注意，如果一个二叉树同此二叉树的镜像是同样的，定义其为对称的。
 */
+
+
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    bool isSymmetrical(TreeNode* pRoot){
+        if(pRoot == NULL)
+            return true;
+        queue<TreeNode*> q;
+        q.push(pRoot->left);
+        q.push(pRoot->right);
+        while(!q.empty()){
+            TreeNode* pleft = q.front();
+            TreeNode* pright = q.front();
+            q.pop();
+            q.pop();
+            if(pleft == NULL && pright == NULL)
+                continue;
+            if(pleft == NULL || pright == NULL)
+                return false;
+            if(pleft != pright)
+                return false;
+            q.push(pleft->left);
+            q.push(pright->right);
+            q.push(pleft->right);
+            q.push(pright->left);
+        }
+        return true;
+    }
+};
 
 

@@ -49,3 +49,60 @@ public:
         }
     }
 };
+
+
+
+
+//解法二：使用栈，与队列类似
+
+/*
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
+class Solution {
+public:
+    void Mirror(TreeNode *pRoot) {
+        if(pRoot == NULL)
+            return;
+        stack<TreeNode*> s;
+        //TreeNode *now = NULL;
+        s.push(pRoot);
+        while(!s.empty()){
+            TreeNode *now = s.top();
+            s.pop();
+            swap(now->left, now->right);
+            if(now->left)
+                s.push(now->left);
+            if(now->right)
+                s.push(now->right);
+        }
+    }
+};
+
+
+//解法三：使用递归
+
+/*
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
+class Solution {
+public:
+    void Mirror(TreeNode *pRoot) {
+        if(pRoot == NULL)
+            return;
+        swap(pRoot->left, pRoot->right);
+        Mirror(pRoot->left);
+        Mirror(pRoot->right);
+    }
+};

@@ -9,7 +9,7 @@
 输出所有和为S的连续正数序列。序列内按照从小至大的顺序，序列间按照开始数字从小到大的顺序
 */
 
-//直接穷举
+//解法一：直接穷举
 
 
 class Solution {
@@ -29,6 +29,33 @@ public:
                         tmp.push_back(k);
                     ans.push_back(tmp);
                 }
+            }
+        }
+        return ans;
+    }
+};
+
+//解法二：使用双指针，相当于有一个窗口，窗口的左右两边就是两个指针；根据窗口内值之和来确定窗口的位置和宽度
+
+
+class Solution {
+public:
+    vector<vector<int> > FindContinuousSequence(int sum) {
+        vector<vector<int> > ans;
+        int fast = 2, slow = 1;
+        while(slow < fast){
+            int s = (slow + fast) * (fast - slow + 1) / 2;
+            if(s < sum)
+                fast++;
+            else if(s == sum){
+                vector<int> tmp;
+                for(int i = slow; i <= fast; i++)
+                    tmp.push_back(i);
+                ans.push_back(tmp);
+                slow++;
+            }
+            else{
+                slow++;
             }
         }
         return ans;

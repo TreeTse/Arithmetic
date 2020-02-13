@@ -4,7 +4,9 @@
 */
 
 
-//解法：使用队列，成对比较
+//解法：使用队列，非递归，成对比较；在入队的时候要成对成对，在出队的时候也是成对成对
+//可以与ci_14.cpp的题相比较
+
 /*
 struct TreeNode {
     int val;
@@ -20,19 +22,20 @@ public:
     bool isSymmetrical(TreeNode* pRoot){
         if(pRoot == NULL)
             return true;
+        TreeNode* pHead = pRoot;
         queue<TreeNode*> q;
-        q.push(pRoot->left);
-        q.push(pRoot->right);
+        q.push(pHead->left);
+        q.push(pHead->right);
         while(!q.empty()){
             TreeNode* pleft = q.front();
+                q.pop();
             TreeNode* pright = q.front();
-            q.pop();
-            q.pop();
+                q.pop();
             if(pleft == NULL && pright == NULL)
                 continue;
             if(pleft == NULL || pright == NULL)
                 return false;
-            if(pleft != pright)
+            if(pleft->val != pright->val)
                 return false;
             q.push(pleft->left);
             q.push(pright->right);

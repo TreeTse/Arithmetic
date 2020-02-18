@@ -5,13 +5,15 @@
 */
 
 
+/*解法：构建一个A(n-1)*B(n-1)的矩阵，其对角线都是1。B[i]的值可以看作是矩阵中每行的
+乘积。先求下三角，再求上三角。
+*/
 
 class Solution {
 public:
     vector<int> multiply(const vector<int>& A) {
         int length = A.size();
-        int B[length];
-        vector<int> ans;
+        vector<int> B(length);
         if(length != 0){
             B[0] = 1;
             for(int i = 1; i < length; i++){
@@ -23,9 +25,6 @@ public:
                 B[j] *= tmp;
             }
         }
-        for(int i = 0; i < length; i++){
-            ans.push_back(B[i]);
-        }
-        return ans;
+        return B;
     }
 };

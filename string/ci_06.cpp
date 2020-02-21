@@ -1,13 +1,46 @@
 /*
-题目描述：
-LL今天心情特别好,因为他去买了一副扑克牌,发现里面居然有2个大王,2个小王(一副牌原本是54张^_^)...
-他随机从中抽出了5张牌,想测测自己的手气,看看能不能抽到顺子,如果抽到的话,他决定去买体育彩票,嘿嘿！！
-“红心A,黑桃3,小王,大王,方片5”,“Oh My God!”不是顺子.....LL不高兴了,他想了想,决定大\小 王可以看
-成任何数字,并且A看作1,J为11,Q为12,K为13。上面的5张牌就可以变成“1,2,3,4,5”(大小王分别看作2和4),
-“So Lucky!”。LL决定去买体育彩票啦。 现在,要求你使用这幅牌模拟上面的过程,然后告诉我们LL的运气如何， 
-如果牌能组成顺子就输出true，否则就输出false。为了方便起见,你可以认为大小王是0。
+题目描述
+请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。例如，字符串
+"+100","5e2","-123","3.1416"和"-1E-16"都表示数值。 但是"12e","1a3.14",
+"1.2.3","+-5"和"12e+4.3"都不是。
 */
 
 
 
 
+class Solution {
+public:
+    bool isNumeric(char* str) {
+        bool sign = false, point = false, charaE = false;
+        for(int i = 0; str[i] != '\0'; i++){
+            if(str[i] == 'E' || str[i] == 'e'){
+                //此字符不能出现两次
+                if(charaE == true) return false;
+                //后面不能跟'.'，不能在串尾
+                if(str[i + 1] == '.' || str[i + 1] == '\0') return false;
+                //前面必须为数字且不是在串首
+                if(!isdigit(str[i - 1]) && (i <= 0)) return false;
+                charaE = true;
+            }
+            else if(str[i] == '+' || str[i] == '-'){
+                //第二次出现，则必须跟在'E'或'e'后面且不是在串尾
+                if(sign && str[i - 1] != 'E' && str[i - 1] != 'e')
+                    return false;
+                //第一次出现，且不是在串首则必须跟在字符'e'或'E'后面
+                if(!sign && i > 0 && str[i - 1] != 'E' && str[i - 1] != 'e')
+                    return false;
+                sign = true;
+            }
+            else if(str[i] == '.'){
+                //'.'只能出现一次 E后面不能接小数点
+                if(point || charaE) return false;
+                //只能跟在数字后面，且后面跟数字
+                if(!isdigit(str[i + 1])) return false;
+                point = true;
+            }
+            else if(str[i] > '9' || str[i] < '0')
+                return false;
+        }
+        return true;
+    }
+};

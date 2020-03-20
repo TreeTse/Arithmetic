@@ -23,7 +23,7 @@
 */
 
 
-//解法：DFS
+//解法一：DFS
 
 class Solution {
 public:
@@ -49,5 +49,75 @@ public:
             }
         }    
         return IsNum;
+    }
+};
+
+//解法二：并查集
+
+class Union{
+public:
+    Union(vector<vector<char>>& grid){
+        Count = 0;
+        int r = grid.size();
+        int c = grid[0].size();
+        for(int i = 0; i < r; i++){
+            for(int j = 0; j < c; j++){
+                if(grid[i][j] == '1'){
+                    ++Count;
+                    parent.push_back(i * c + j);
+                }
+                else
+                    parent.push_back(-1);
+                rank.push_back(0);
+            }
+        }
+    }
+    int getFather(int x){
+        while(x != parent[x]){
+            x = parent[x];
+        }
+        return x;
+    }
+    void toUnion(int x, int y){
+        int xf = getFather(x);
+        int yf = getFather(y);
+        if(xf != yf){
+            if(rank[xf] > rank[yf]) parent[yf] = xf;
+            else if(rank[xf] < rank[yf]) parent[xf] = yf;
+            else {
+                parent[yf] = xf;
+                rank[xf]++;
+            }
+            --Count;
+        }
+    }
+    int getCount() const{
+        return Count;
+    }
+private:
+    vector<int> parent;
+    vector<int> rank;
+    int Count;
+};
+
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int rn = grid.size();
+        if(!rn) return 0;
+        int cn = grid[0].size();
+        Union u(grid);
+        for(int i = 0; i < rn; i++){
+            for(int j = 0; j < cn; j++){
+                if(grid[i][j] == '1'){
+                    grid[i][j] = '0';
+                    if(i - 1 >= 0 && grid[i - 1][j] == '1') u.toUnion(i * cn + j, (i - 1) * cn + j);
+                    if(i + 1 < rn && grid[i + 1][j] == '1') u.toUnion(i * cn + j, (i + 1) * cn + j);
+                    if(j - 1 >= 0 && grid[i][j - 1] == '1') u.toUnion(i * cn + j, i * cn + j - 1);
+                    if(j + 1 < cn && grid[i][j + 1] == '1') u.toUnion(i * cn + j, i * cn + j + 1);
+                }
+            }
+        }
+        return u.getCount();
     }
 };
